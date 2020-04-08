@@ -26,4 +26,28 @@ export class TarefaService {
     return tarefas.find(t => t.Id === id);
   }
 
+  atualizar(tarefa: Tarefa): void {
+    const tarefas: Tarefa[] = this.listarTodos();
+    tarefas.forEach((obj, index, objs) => {
+        if (tarefa.Id === obj.Id){
+          objs[index] = tarefa;
+        }
+    });
+    localStorage['tarefas'] = JSON.stringify(tarefas);
+  }
+
+  remover(id: number): void {
+    let tarefas: Tarefa[] = this.listarTodos();
+    tarefas = tarefas.filter(a => a.Id !== id);
+    localStorage['tarefas'] = JSON.stringify(tarefas);
+  }
+
+  alterarStatus(id: number): void {
+    let tarefas: Tarefa[] = this.listarTodos();
+    tarefas.forEach((obj, index, objs) => {
+        if (id === obj.Id){
+          objs[index].Concluida = !obj.Concluida;
+        }
+    });
+  }
 }
