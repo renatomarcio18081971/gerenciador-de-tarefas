@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Tarefa } from './';
+import { JsonPipe } from '@angular/common';
 
 
 @Injectable({
@@ -43,11 +44,12 @@ export class TarefaService {
   }
 
   alterarStatus(id: number): void {
-    let tarefas: Tarefa[] = this.listarTodos();
+    const tarefas: Tarefa[] = this.listarTodos();
     tarefas.forEach((obj, index, objs) => {
         if (id === obj.Id){
           objs[index].Concluida = !obj.Concluida;
         }
     });
+    localStorage['tarefas'] = JSON.stringify(tarefas);
   }
 }
